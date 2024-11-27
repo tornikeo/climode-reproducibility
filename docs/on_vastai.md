@@ -81,9 +81,30 @@ $ tree -du -h data/
 
 # Install climode-specific requirements
 
-1. `cd climode/ClimODE` and run `pip install -r requirements.txt`. 
-    **NOTE** that you will need to run `scripts/commands.sh` first, to install tools required for installing requiremets. Some require wheels, so *build-essential* tools are *essential* here.
+1. First, install pyg, using `conda install pytorch-cluster -c pyg -y`
+1. Then, run `pip install -r requirements.txt` to install the rest of the packages.
+1. Run `conda install -c conda-forge xarray dask netCDF4 bottleneck -y` which will install `xarray` package and data I/O libraries.
 
-    **pip install will take good 5 mins or so. Go grab a coffee.**
+All of above will take a 30 mins or so, so be patient. This is tested on the following vast.ai template:
+"https://cloud.vast.ai/templates/edit?templateHashId=4a5b7f1e0aba3527f1f75cfb3bfc75b5"
 
+Locally, you could also use either a:
+
+`docker pull pytorch/pytorch:2.2.1-cuda12.1-cudnn8-devel` docker image (9GB)
+
+or 
+
+`docker pull pytorch/pytorch:2.2.1-cuda12.1-cudnn8-runtime` docker image (3.5GB), but lacks build tools.
+
+# Run and fix
+
+1. Run eval first. Make sure to be in `~/climode-reproducibility/climode/ClimODE$` directory
+1. Run `python evaluation_global.py --spectral 0 --scale 0 --batch_size 8` and 
+    You will get a `FileNotFoundError: [Errno 2] No such file or directory: b'/root/climode-reproducibility/climode/ClimODE/era5_data/constants/constants_5.625deg.nc'` error. 
+1. Fix this by moving the constants file above:
+    `cp era5_data/constants/constants/constants_5.625deg.nc era5_data/constants/`
+
+1. Re-run that darn script.
+
+1. You WILL get another error of `FileNotFoundError: [Errno 2] No such file or directory: '### Test velocity here'`. This is where developer messed up. You can see this as an issue on their [repo](https://github.com/Aalto-QuML/ClimODE/issues/7), but it seems devs don't care. We have to fix it.
 
