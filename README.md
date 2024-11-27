@@ -21,7 +21,9 @@ About all else:
 
 1. Data, Model files, zips, images, pdfs, all go into assets. 
 
-# NOTES:
+# Running on Vast.ai
 
-1. Why not use Overleaf? Overleaf disallows more than 2 collaborators.
-1. Latex on VSCode is [easy to setup](https://github.com/James-Yu/LaTeX-Workshop/wiki/Install).
+Follow these steps:
+
+1. https://cloud.vast.ai/templates/edit?templateHashId=4a5b7f1e0aba3527f1f75cfb3bfc75b5
+

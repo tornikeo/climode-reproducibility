@@ -25,7 +25,11 @@
 
 # install
 
-1. Clone repo locally
+1. Clone repo with 
+```sh
+git clone https://github.com/tornikeo/climode-reproducibility.git --recursive
+```
+
 1. Run pip install -r requirements.txt
 1. You will need to have a command `unzip` available, so install it by running scripts `commands.sh`
 
@@ -53,8 +57,8 @@ era5_data/
 ```
 Each of 6 files is a zipfile here, actually. We need to extract each.
 
-1. run `python scripts/upzip.py`
-1. Check that all files are under data. You must have a lot of .nc files in each directory.
+1. run `python scripts/upzip.py` This will both extract files and move them to `climode/ClimODE`
+1. Check that all files are under . You must have a lot of .nc files in each directory.
 
 ```
 $ tree -du -h data/
@@ -73,5 +77,13 @@ $ tree -du -h data/
     └── [root       50]  temperature_850
 ```
 
-**NOTE** `data/` directory will be 26GB total at this point.
+**NOTE** `climode/ClimODE/era5_data` directory will now be 26GB total at this point.
+
+# Install climode-specific requirements
+
+1. `cd climode/ClimODE` and run `pip install -r requirements.txt`. 
+    **NOTE** that you will need to run `scripts/commands.sh` first, to install tools required for installing requiremets. Some require wheels, so *build-essential* tools are *essential* here.
+
+    **pip install will take good 5 mins or so. Go grab a coffee.**
+
 

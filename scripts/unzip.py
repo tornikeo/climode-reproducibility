@@ -3,7 +3,7 @@ import zipfile
 
 # Base directories
 data_dir = "era5_data"
-out_dir = "data"
+out_dir = "climode/ClimODE/era5_data"
 
 # Ensure the output directory exists
 os.makedirs(out_dir, exist_ok=True)
