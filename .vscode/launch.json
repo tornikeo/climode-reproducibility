@@ -1,0 +1,21 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "evaluation_global.py",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/climode/ClimODE",
+            "program": "${workspaceFolder}/climode/ClimODE/evaluation_global.py",
+            "args": [
+                "--spectral", "0",
+                "--scale", "0",
+                "--batch_size", "8"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}
