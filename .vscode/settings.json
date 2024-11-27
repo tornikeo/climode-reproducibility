@@ -1,4 +1,5 @@
 {
     // Makes notebooks under notes/ run as if they were in root.
     "jupyter.notebookFileRoot": "${workspaceRoot}"
+    "window.title": "CLIMDE@VASTAI"
 }

@@ -16,6 +16,20 @@
                 "--batch_size", "8"
             ],
             "console": "integratedTerminal"
+        },
+        {
+            "name": "train_global.py",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/climode/ClimODE",
+            "program": "${workspaceFolder}/climode/ClimODE/train_global.py",
+            "args": [
+                "--scale", "0",
+                "--batch_size", "6",
+                "--spectral", "0",
+                "--solver", "euler",
+            ],
+            "console": "integratedTerminal"
         }
     ]
 }
