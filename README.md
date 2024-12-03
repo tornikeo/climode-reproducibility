@@ -1,29 +1,13 @@
-# ClimODE replication
+# ClimODE reproducibility
 
-**This repo contains [ClimODE](https://github.com/Aalto-QuML/ClimODE) as a submodule**. Clone appropriately.
+This repository attempts to replicate the ClimODE model's results. 
 
-Some notes:
+The base repository is at https://github.com/Aalto-QuML/ClimODE. 
 
-About notebooks:
+# Running this
 
-1. By default all notebooks are ignored. Write all you want here, and make sure you can "see" files around you. Use `!pwd` to see where you are located.
-1. When you write a notebook good enough to be shared around (commented and useful), use `git add -f notes/yournotebookbook.ipynb` to add it.
+Please refer to the [documentation](./docs/on_vastai.md) on running. 
 
-About python:
+Experiments were done on hardware rented on [vast.ai](https://vast.ai/). 
 
-1. All python stored in `climode`, as top level files, to be imported as `from climode import myfile`
-
-About report (tex):
-
-1. Stored under `report`.
-
-About all else:
-
-1. Data, Model files, zips, images, pdfs, all go into assets. 
-
-# Running on Vast.ai
-
-Follow these steps:
-
-1. https://cloud.vast.ai/templates/edit?templateHashId=4a5b7f1e0aba3527f1f75cfb3bfc75b5
-
+At minimum, you will need one RTX4090 GPU with 24GBs VRAM and at least 32GB of RAM. The dataset, the packages and the experiments only used up to 50GB of disk space in total. 

@@ -29,13 +29,13 @@
 ```sh
 git clone https://github.com/tornikeo/climode-reproducibility.git --recursive
 ```
-
+1. Run `git submodule update --init --recursive`
 1. Run pip install -r requirements.txt
-1. You will need to have a command `unzip` available, so install it by running scripts `commands.sh`
+1. Install everything by running `bash scripts/install.sh`. **Unless you selected a proper docker image this will take a while (30 mins) and you might need a lot of disk space (15 GB)**
 
 # download ERA5
 
-1. run `python scripts/download.py` this will make `era5_data` directory and download your data. Downloaded files will look like this:
+1. run `python scripts/download.py` this will make `era5_data` directory and it will first download your data. Downloaded files will look like this:
 
 ```
 $ tree era5_data
@@ -57,8 +57,7 @@ era5_data/
 ```
 Each of 6 files is a zipfile here, actually. We need to extract each.
 
-1. run `python scripts/upzip.py` This will both extract files and move them to `climode/ClimODE`
-1. Check that all files are under . You must have a lot of .nc files in each directory.
+Then, the unzipping (extraction) will happen. This will both extract files and move them to `climode/ClimODE`. You must have a lot of .nc files in each directory.
 
 ```
 $ tree -du -h data/
@@ -81,20 +80,10 @@ $ tree -du -h data/
 
 # Install climode-specific requirements
 
-1. First, install pyg, using `conda install pytorch-cluster -c pyg -y`
-1. Then, run `pip install -r requirements.txt` to install the rest of the packages.
-1. Run `conda install -c conda-forge xarray dask netCDF4 bottleneck -y` which will install `xarray` package and data I/O libraries.
+All of above will take a 30 mins or so, so be patient. Most of packages come with this docker image:
 
-All of above will take a 30 mins or so, so be patient. This is tested on the following vast.ai template:
-"https://cloud.vast.ai/templates/edit?templateHashId=4a5b7f1e0aba3527f1f75cfb3bfc75b5"
-
-Locally, you could also use either a:
-
-`docker pull pytorch/pytorch:2.2.1-cuda12.1-cudnn8-devel` docker image (9GB)
-
-or 
-
-`docker pull pytorch/pytorch:2.2.1-cuda12.1-cudnn8-runtime` docker image (3.5GB), but lacks build tools.
+most of the heaviest packages are already available on
+`docker pull pytorch/pytorch:2.4.1-cuda12.4-cudnn9-devel`
 
 # Run and fix
 
