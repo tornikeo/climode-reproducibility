@@ -3,3 +3,4 @@ era5_data/
 data/
 *.nc
 *.zip
+.env
