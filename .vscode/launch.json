@@ -5,15 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${workspaceFolder}/climode/ClimODE",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "evaluation_global.py",
             "type": "debugpy",
             "request": "launch",
             "cwd": "${workspaceFolder}/climode/ClimODE",
             "program": "${workspaceFolder}/climode/ClimODE/evaluation_global.py",
             "args": [
-                "--spectral", "0",
-                "--scale", "0",
-                "--batch_size", "8"
+                "--spectral",
+                "0",
+                "--scale",
+                "0",
+                "--batch_size",
+                "8"
             ],
             "console": "integratedTerminal"
         },
@@ -24,10 +35,14 @@
             "cwd": "${workspaceFolder}/climode/ClimODE",
             "program": "${workspaceFolder}/climode/ClimODE/train_global.py",
             "args": [
-                "--scale", "0",
-                "--batch_size", "6",
-                "--spectral", "0",
-                "--solver", "euler",
+                "--scale",
+                "0",
+                "--batch_size",
+                "6",
+                "--spectral",
+                "0",
+                "--solver",
+                "euler",
             ],
             "console": "integratedTerminal"
         }
