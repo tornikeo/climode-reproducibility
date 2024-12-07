@@ -76,7 +76,7 @@ for subdir in subdirs:
     os.makedirs(first_unzip_dir, exist_ok=True)
 
     # Unzip the first-level zip file
-    with zipfile.ZipFile(first_zip_path, 'r') as first_zip:
+    with zipfile.ZipFile(first_zip_path, "r") as first_zip:
         print(f"Unzipping {first_zip_path} to {first_unzip_dir}...")
         first_zip.extractall(first_unzip_dir)
 
@@ -98,7 +98,7 @@ for subdir in subdirs:
     second_unzip_dir = os.path.join(first_unzip_dir)
 
     # Unzip the second-level zip file
-    with zipfile.ZipFile(second_zip_path, 'r') as second_zip:
+    with zipfile.ZipFile(second_zip_path, "r") as second_zip:
         print(f"Unzipping {second_zip_path} to {second_unzip_dir}...")
         second_zip.extractall(second_unzip_dir)
 
