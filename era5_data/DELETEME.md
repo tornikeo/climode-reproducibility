@@ -1,1 +1,0 @@
-# Delete this files and download the dataset using scripts/download.py

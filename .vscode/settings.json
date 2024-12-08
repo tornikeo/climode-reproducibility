@@ -1,9 +1,9 @@
 {
     // Makes notebooks under notes/ run as if they were in root.
-    "jupyter.notebookFileRoot": "${workspaceRoot}/climode/ClimODE",
+    "jupyter.notebookFileRoot": "${workspaceRoot}",
     "window.title": "CLIMDE@VASTAI",
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnSave": true
-    }
+        "editor.formatOnSave": true,
+    },
 }

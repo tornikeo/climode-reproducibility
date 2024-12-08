@@ -31,8 +31,7 @@ conda install xarray dask netCDF4 bottleneck -c conda-forge -y
 # python utilities
 pip install pooch matplotlib numpy ipykernel \
     tqdm pandas datasets transformers \
-    scipy properscoring torchdiffeq
+    scipy properscoring torchdiffeq pytest fire
 
-code --install-extension ms-python.python
-code --install-extension ms-toolsai.jupyter
-code --install-extensions ms-python.black-formatter
+# Make climode available as editable package
+pip install -e . 

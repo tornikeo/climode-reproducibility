@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+dynamic = ["version"]
+name = "climode"
+requires-python = ">=3.8"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Tornike Onoprishvili", email = "onoprt@usi.ch"},
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]

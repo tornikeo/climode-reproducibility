@@ -1,3 +1,0 @@
-[submodule "climode/ClimODE"]
-	path = climode/ClimODE
-	url = https://github.com/tornikeo/ClimODE
