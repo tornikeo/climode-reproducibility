@@ -294,21 +294,26 @@ def main(
             Final_test_data = torch.cat([Final_test_data, Test_data], dim=2)
 
     print("train, val, test data shapes:")
-    print(Final_train_data.shape, Final_test_data.shape, Final_val_data.shape)
+    print(
+        Final_train_data.shape,
+        Final_val_data.shape,
+        Final_test_data.shape,
+    )
 
     const_channels_info, lat_map, lon_map = add_constant_info(const_info_path)
     H, W = Train_data.shape[3], Train_data.shape[4]
     Train_loader = DataLoader(
         Final_train_data[2:],
         batch_size=batch_size,
-        shuffle=False,
-        pin_memory=False,
     )
-    Val_loader = DataLoader(Final_val_data[2:], batch_size=batch_size, shuffle=False)
-    Test_loader = DataLoader(Final_test_data[2:], batch_size=batch_size, shuffle=False)
-    time_loader = DataLoader(time_steps[2:], batch_size=batch_size, shuffle=False)
+    Val_loader = DataLoader(
+        Final_val_data[2:],
+        batch_size=batch_size,
+    )
+    Test_loader = DataLoader(Final_test_data[2:], batch_size=batch_size)
+    time_loader = DataLoader(time_steps[2:], batch_size=batch_size)
     time_idx_steps = torch.tensor([i for i in range(365 * 4)]).view(-1, 1)
-    time_idx = DataLoader(time_idx_steps[2:], batch_size=batch_size, shuffle=False)
+    time_idx = DataLoader(time_idx_steps[2:], batch_size=batch_size)
     num_years = len(range(2006, 2016))
 
     if not Path("kernel.npy").exists():
@@ -363,8 +368,10 @@ def main(
             kernel=kernel,
         )
 
-    vel_train, vel_val = load_velocity(["train_10year_2day_mm", "val_10year_2day_mm"])
-
+    # vel_train, vel_val = load_velocity(["train_10year_2day_mm", "val_10year_2day_mm"])
+    vel_train, vel_val, vel_test = load_velocity(
+        ["train_10year_2day_mm", "val_10year_2day_mm", "test_10year_2day_mm"]
+    )
     model = Climate_encoder_free_uncertain(
         len(paths_to_data),
         2,
@@ -465,15 +472,15 @@ def main(
                 pbar.set_postfix({"val_lss": loss.item()})
                 val_loss = val_loss + loss.item()
 
-        print("|Iter ", epoch, " | Total Val Loss ", val_loss, "|")
+            print("|Iter ", epoch, " | Total Val Loss ", val_loss, "|")
 
-        print(
-            f"Writing model to checkpoints/ClimODE_global_{solver}_{spectral}_model_{epoch}_{val_loss}.pt"
-        )
-        torch.save(
-            model,
-            f"checkpoints/ClimODE_global_{solver}_{spectral}_model_{epoch}_{val_loss}.pt",
-        )
+            print(
+                f"Writing model to checkpoints/ClimODE_global_{solver}_{spectral}_model_{epoch}_{val_loss}.pt"
+            )
+            torch.save(
+                model.state_dict(),
+                f"checkpoints/ClimODE_global_{solver}_{spectral}_model_{epoch}_{val_loss}.pt",
+            )
 
         if dryrun:
             print("Early break due to dryrun")
