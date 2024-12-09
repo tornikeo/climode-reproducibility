@@ -1,6 +1,6 @@
 # ClimODE reproducibility
 
-This repository attempts to replicate the ClimODE model's results. 
+This repository attempts to replicate the ClimODE model's results. **Read the full report [here](https://tornikeo.github.io/climode-reproducibility/report.pdf)**.
 
 The base repository is at https://github.com/Aalto-QuML/ClimODE. 
 
