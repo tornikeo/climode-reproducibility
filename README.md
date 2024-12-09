@@ -45,3 +45,11 @@ Please refer to the [documentation](./docs/on_vastai.md) on running. RTX4090 cos
 Experiments were done on hardware rented on [vast.ai](https://vast.ai/). 
 
 At minimum, you will need one RTX4090 GPU with 24GBs VRAM and at least 32GB of RAM. The dataset, the packages and the experiments only used up to 50GB of disk space in total. 
+
+# Testing
+
+A simple testcase for quickly testing train/eval scripts have been added. Run it with:
+
+```sh
+pytest -sx
+```
