@@ -9,7 +9,7 @@ data/
 __pycache__/
 era5_data
 *.npy
-Models/
+Models/*.pt
 .env
 wandb/
 nohup.out
