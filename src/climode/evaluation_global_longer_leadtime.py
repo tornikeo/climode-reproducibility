@@ -54,7 +54,7 @@ Final_test_data = 0
 max_lev = []
 min_lev = []
 for idx,data in enumerate(paths_to_data):
-    Train_data,Val_data,Test_data,time_steps,lat,lon,mean,std,time_stamp = get_train_test_data_without_scales_batched(data,train_time_scale,val_time_scale,test_time_scale,levels[idx],args.spectral, daily_resampling=True)  
+    Train_data,Val_data,Test_data,time_steps,lat,lon,mean,std,time_stamp = get_train_test_data_without_scales_batched(data,train_time_scale,val_time_scale,test_time_scale,levels[idx],args.spectral, daily_sampling=True)  
     max_lev.append(mean)
     min_lev.append(std)
     if idx==0: 
