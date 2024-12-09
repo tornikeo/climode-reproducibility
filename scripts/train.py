@@ -474,18 +474,16 @@ def main(
 
             print("|Iter ", epoch, " | Total Val Loss ", val_loss, "|")
 
+            model_file = f"checkpoints/ClimODE_global_{solver}_{spectral}_model_{epoch}_{val_loss}.pt"
             print(
-                f"Writing model to checkpoints/ClimODE_global_{solver}_{spectral}_model_{epoch}_{val_loss}.pt"
+                f"Writing model to {model_file}"
             )
-            torch.save(
-                model.state_dict(),
-                f"checkpoints/ClimODE_global_{solver}_{spectral}_model_{epoch}_{val_loss}.pt",
-            )
+            torch.save(model.state_dict(),model_file)
 
         if dryrun:
             print("Early break due to dryrun")
             break
-
+    return model_file # For testing purposes
 
 if __name__ == "__main__":
     fire.Fire(main)

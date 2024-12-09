@@ -26,6 +26,8 @@ Install needs 16GB, and dataset needs 5GB.
 
 Run training (global model, batch size 6, odeint euler, all else default):
 
+First-time run is slower. It will create suppring `.npy` files, which are reused in later runs.
+
 ```sh
 python scripts/train.py
 ```
@@ -38,7 +40,7 @@ python scripts/evaluate.py --checkpoint_path checkpoints/ClimODE_global_euler_0_
 
 # No RTX4090?
 
-Please refer to the [documentation](./docs/on_vastai.md) on running. RTX4090 costs $0.45/hr to rent.
+Please refer to the [documentation](./docs/on_vastai.md) on running. RTX4090 costs ~$0.45/hr to rent.
 
 Experiments were done on hardware rented on [vast.ai](https://vast.ai/). 
 

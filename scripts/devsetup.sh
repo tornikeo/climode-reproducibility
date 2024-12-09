@@ -2,7 +2,6 @@
 ## This is setup for development
 set -e
 
-bash scripts/install.sh
 pip install -e .
 
 # vscode stuff
