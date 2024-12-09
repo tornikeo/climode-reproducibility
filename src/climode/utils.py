@@ -50,7 +50,7 @@ def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
 
-def get_batched(train_times, data_train_final, lev):
+def get_batched(train_times, data_train_final, lev, daily_sampling=False):
     for idx, year in enumerate(train_times):
         data_per_year = data_train_final.sel(time=slice(str(year), str(year))).load()
         data_values = data_per_year[lev].values
@@ -59,32 +59,42 @@ def get_batched(train_times, data_train_final, lev):
                 -1, 1, 1, data_values.shape[-2], data_values.shape[-1]
             )
             if year % 4 == 0:
-                train_data = torch.cat(
-                    (train_data[:236], train_data[240:])
-                )  # skipping 29 feb in leap year
+                if daily_sampling:
+                    train_data = torch.cat((train_data[:59],train_data[60:]))
+                else:
+                    train_data = torch.cat(
+                        (train_data[:236], train_data[240:])
+                    )  # skipping 29 feb in leap year
         else:
             mid_data = torch.from_numpy(data_values).reshape(
                 -1, 1, 1, data_values.shape[-2], data_values.shape[-1]
             )
             if year % 4 == 0:
-                mid_data = torch.cat(
-                    (mid_data[:236], mid_data[240:])
-                )  # skipping 29 feb in leap year
+                if daily_sampling:
+                    mid_data = torch.cat((mid_data[:59],mid_data[60:]))
+                else:
+                    mid_data = torch.cat(
+                        (mid_data[:236], mid_data[240:])
+                    )  # skipping 29 feb in leap year
             train_data = torch.cat([train_data, mid_data], dim=1)
 
     return train_data
 
 
 def get_train_test_data_without_scales_batched(
-    data_path, train_time_scale, val_time_scale, test_time_scale, lev, spectral
+    data_path, train_time_scale, val_time_scale, test_time_scale, lev, spectral, daily_sampling=False
 ):
     data = xr.open_mfdataset(data_path, combine="by_coords")
     # data = data.isel(lat=slice(None, None, -1))
     if lev in ["v", "u", "r", "q", "tisr"]:
         data = data.sel(level=500)
-    data = data.resample(time="6h").nearest(
-        tolerance="1h"
-    )  # Setting data to be 6-hour cycles
+
+    if daily_sampling:
+        data = data.resample(time="1D").nearest(tolerance="1D") # Setting data to be 1-day cycles
+    else:
+        data = data.resample(time="6h").nearest(
+            tolerance="1h"
+        )  # Setting data to be 6-hour cycles
     data_train = data.sel(time=train_time_scale).load()
     data_val = data.sel(time=val_time_scale).load()
     data_test = data.sel(time=test_time_scale).load()
@@ -102,11 +112,14 @@ def get_train_test_data_without_scales_batched(
     test_times = [2017, 2018]
     val_times = [2016]
 
-    train_data = get_batched(train_times, data_train_final, lev)
-    test_data = get_batched(test_times, data_test_final, lev)
-    val_data = get_batched(val_times, data_val_final, lev)
+    train_data = get_batched(train_times, data_train_final, lev, daily_sampling)
+    test_data = get_batched(test_times, data_test_final, lev, daily_sampling)
+    val_data = get_batched(val_times, data_val_final, lev, daily_sampling)
 
-    t = [i for i in range(365 * 4)]
+    if daily_sampling:
+        t = [i for i in range(365 * 4)]
+    else:
+        t = [i for i in range(365 * 4)]
     time_steps = torch.tensor(t).view(-1, 1)
     return (
         train_data,
